@@ -17,6 +17,12 @@ public class Position {
         this.col = col - 64;    //Subtract 64 to get actual 1-8 number (uppercase A is 65)
     }
 
+    //Internal constructor using two ints
+    private Position(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
+
     public int getRow() {
         return this.row;
     }
@@ -46,7 +52,18 @@ public class Position {
 
     public boolean isValid(int row, char col) {
         return (row > 0 && row <= 8)    //Row must be between 1 and 8 (inclusive)
-                && ((col >= 97 && col <= 104) || (col >= 65 && col <= 72)); //Column must be between 'A' and 'H' or 'a' and 'h' (inclusive)
+                && (col > 0 && col <= 8); //Column must be between 1 and 8 (inclusive)
+    }
+
+    public Position add(int rows, int cols)
+    {
+        Position newPos;
+        try
+        {
+            newPos = new Position(row + rows, col + cols);
+        } catch (Exception e) { newPos = null; }
+
+        return newPos;
     }
 
     public boolean equals(Position pos) { return this.row == pos.row && this.col == pos.col; }
