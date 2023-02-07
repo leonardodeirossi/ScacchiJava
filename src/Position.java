@@ -1,3 +1,5 @@
+package src;
+
 public class Position {
     private int row;
     private char col;
