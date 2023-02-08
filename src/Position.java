@@ -5,16 +5,21 @@ public class Position {
     private int col;
 
     public Position(int row, char col) {
-        if(!isValid(row, col))
-        {
-            throw new IllegalArgumentException("Invalid position \"" + row + col + "\"");
+        if((col >= 97 && col <= 105)
+            || (col >= 65 && col <= 73)) {
+
+            //If col is above 97 it is lowercase, subtract 32 to get uppercase
+            if(col >= 97) col -= 32;
+            this.col = col - 64;    //Subtract 64 to get actual 1-8 number (uppercase A is 65)
+
+            if (!isValid(row, col)) {
+                throw new IllegalArgumentException("Invalid position \"" + row + col + "\"");
+            }
+
+            this.row = row;
+        } else {
+            throw new IllegalArgumentException("Column must be between 'A' and 'H' or 'a' and 'h'");
         }
-
-        this.row = row;
-
-        //If col is above 97 it is lowercase, subtract 32 to get uppercase
-        if(col >= 97) col -= 32;
-        this.col = col - 64;    //Subtract 64 to get actual 1-8 number (uppercase A is 65)
     }
 
     //Internal constructor using two ints
